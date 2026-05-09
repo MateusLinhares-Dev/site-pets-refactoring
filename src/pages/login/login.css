@@ -1,0 +1,105 @@
+
+.container_tela_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #e9739c 0%, #a4a0b6 50%, #5dc0bb 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form_login {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+}
+
+.login_header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #61b8bd;
+}
+
+.login_header h2 span {
+    color: #f26f97;
+}
+
+.login_header p {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+
+.input_group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input_group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #1b4b6b;
+    margin-bottom: 5px;
+}
+
+.input_group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.input_group input:focus {
+    outline: none;
+    border-color: #5dc0bb;
+}
+
+.input_senha_wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.btn_mostrar_senha {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #666;
+}
+
+.btn_entrar {
+    width: 100%;
+    padding: 12px;
+    background-color: #f26f97;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn_entrar:hover {
+    background-color: #d85c82;
+}
+
+.login_footer p {
+    font-size: 0.65rem;
+    color: #aaa;
+    margin-top: 20px;
+}

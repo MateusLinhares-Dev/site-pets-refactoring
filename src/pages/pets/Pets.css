@@ -1,0 +1,195 @@
+.pets_page_bg {
+    background-color: #f7f9fa;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.pets_container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.pets_header h1 {
+    color: #1b4b6b;
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.pets_header p {
+    color: #888;
+    margin-bottom: 30px;
+}
+
+.pets_actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.search_box {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #eaeaea;
+    width: 40%;
+}
+
+.search_box input {
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+    color: #333;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+}
+
+.btn_filter {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid #5dc0bb;
+    background: white;
+    color: #5dc0bb;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn_filter.active {
+    background: #5dc0bb;
+    color: white;
+}
+
+.pets_list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pet_card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.pet_card_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.pet_info_principal {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pet_avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffe1eb;
+}
+
+.pet_textos h3 {
+    margin: 0 0 5px 0;
+    color: #1b4b6b;
+    font-size: 1.3rem;
+}
+
+.pet_textos p {
+    margin: 0;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.pet_acoes_header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.badge_solicitacoes {
+    background-color: #f26f97;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.btn_toggle {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.pet_card_body {
+    padding: 0 20px 20px 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.pet_descricao {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.solicitacoes_section h4 {
+    color: #1b4b6b;
+    margin: 25px 0 15px 0;
+}
+
+.table_solicitacoes {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table_solicitacoes th {
+    background-color: #e94c89;
+    color: white;
+    text-align: left;
+    padding: 12px;
+    font-size: 0.9rem;
+}
+
+.table_solicitacoes th:first-child { border-top-left-radius: 8px; }
+.table_solicitacoes th:last-child { border-top-right-radius: 8px; }
+
+.table_solicitacoes td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #eaeaea;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.btn_whatsapp {
+    background-color: #2b9d8f;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn_whatsapp:hover {
+    background-color: #238579;
+}
