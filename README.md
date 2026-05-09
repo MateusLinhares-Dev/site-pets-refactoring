@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# 🐾 PetLove Admin Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
 
-Currently, two official plugins are available:
+> Sistema administrativo para a gestão de pets e controle de solicitações de adoção, desenvolvido como desafio prático de Desenvolvimento Web FullStack.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 💻 Sobre o Projeto
 
-## React Compiler
+O **PetLove Admin** é um portal exclusivo para funcionários, focado na gestão eficiente de animais disponíveis para adoção. O sistema consome uma API RESTful para listar os pets cadastrados, gerenciar os interessados na adoção e registrar novos animais no banco de dados.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O projeto foi construído utilizando as melhores práticas do ecossistema React, incluindo proteção de rotas, manipulação de estado, hooks customizados e design responsivo.
 
-## Expanding the ESLint configuration
+## ✨ Funcionalidades Implementadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **🔐 Autenticação e Segurança:**
+  - Tela de login com validação de credenciais via API.
+  - Middlewares de rotas protegidas (Protected Routes).
+  - Sistema de Auto-Logout de segurança após 15 minutos de inatividade.
+  - Ocultar/Mostrar senha no formulário.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **📋 Listagem e Gestão de Pets:**
+  - Consumo inteligente de API com cruzamento de dados (Pets e Solicitações de Adoção).
+  - Cards expansíveis para visualização detalhada.
+  - Barra de pesquisa em tempo real pelo nome do pet.
+  - Filtros dinâmicos por espécie (Todos, Cachorros, Gatos).
+  - Tabela responsiva de adotantes com atalho de contato (WhatsApp).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **📝 Cadastro de Novos Animais:**
+  - Formulário completo com validação de campos.
+  - Preview dinâmico de imagem em tempo real baseado na URL inserida.
+  - Feedback visual interativo (Loading states e modais de sucesso/erro com SweetAlert2).
+  - Envio padronizado do payload (JSON) para a API.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠️ Tecnologias Utilizadas
+
+- **Frontend:** React.js com TypeScript
+- **Roteamento:** React Router DOM v6
+- **Estilização:** CSS3 (Grid, Flexbox e Variáveis)
+- **Feedbacks Visuais:** SweetAlert2
+- **Integração:** Fetch API nativa (Async/Await)
+
+## 🚀 Como Executar o Projeto
+
+Pré-requisitos: Você precisa ter o [Node.js](https://nodejs.org/) e o [Git](https://git-scm.com/) instalados na sua máquina. Certifique-se também de que a API Backend do projeto esteja rodando localmente na porta configurada (ex: `http://localhost:3000`).
+
+1. **Clone o repositório:**
+```bash
+   git clone [git remote add origin https://github.com/MateusLinhares-Dev/site-pets-refactoring.gitt](https://github.com/MateusLinhares-Dev/site-pets-refactoring.git)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. **Acesse a pasta do projeto:**
+```bash
+cd site-pets-refactoring
 ```
+
+3. **Instale as dependências:**
+```bash
+npm install
+# ou usando yarn: yarn install
+```
+4. **Inicie o servidor de desenvolvimento:**
+```bash
+npm run dev
+# ou usando yarn: yarn dev
+```
+
+5. *O aplicativo estará disponível no seu navegador em http://localhost:5173 (ou a porta padrão informada pelo Vite/Create React App).*
+
+# 👨‍💻 Autor
+`Desenvolvido com dedicação por Mateus Linhares para a consolidação de conhecimentos em desenvolvimento frontend moderno.`

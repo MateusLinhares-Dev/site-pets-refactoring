@@ -36,6 +36,14 @@ export const Menu = () => {
                     </Link>
                 </li>
                 <li>
+                    <Link 
+                        to="/dashboard" 
+                        className={`menu_link_item ${location.pathname === '/dashboard' ? 'ativo' : ''}`}
+                    >
+                        Dashboard
+                    </Link>
+                </li>
+                <li>
                     <button onClick={handleLogout} className="menu_btn_sair">
                         Sair
                     </button>
