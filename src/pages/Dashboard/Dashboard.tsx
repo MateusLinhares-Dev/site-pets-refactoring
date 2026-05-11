@@ -1,146 +1,128 @@
 import { useState, useEffect } from 'react';
 import { 
-  PieChart, Pie, Cell, 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  LineChart, Line, Legend
 } from 'recharts';
-import './Dashboard.css';
 import { Menu } from '../home/Menu';
+import './Dashboard.css';
 
 interface Pet {
     id: number;
     nome: string;
     tipo: string;
-    solicitacoes: any[];
 }
 
 export const Dashboard = () => {
     const [pets, setPets] = useState<Pet[]>([]);
+    const [custoRacaoDia, setCustoRacaoDia] = useState<number>(10);
+    const [diasAdocaoMaisRapida, setDiasAdocaoMaisRapida] = useState<number>(7);
 
     useEffect(() => {
         const carregarDados = async () => {
             try {
                 const url = "http://localhost:3000/api/admin/pets"; 
                 const response = await fetch(url);
-                
                 if (response.ok) {
                     const data = await response.json();
-                    
-                    const listaDePets = data.pets || [];
-                    const listaDeAdocoes = data.adocoes || [];
-
-                    const petsFormatados = listaDePets.map((pet: any) => ({
-                        ...pet,
-                        tipo: pet.tipo || pet.especie || '',
-                        solicitacoes: listaDeAdocoes.filter((adocao: any) => adocao.idPet === pet.id)
-                    }));
-
-                    setPets(petsFormatados);
+                    setPets(data.pets || []);
                 } else {
-                    setPets([
-                        { id: 1, nome: "Thor", tipo: "Cachorro", solicitacoes: [1, 2] },
-                        { id: 2, nome: "Mia", tipo: "Gato", solicitacoes: [1] },
-                        { id: 3, nome: "Rex", tipo: "Cachorro", solicitacoes: [1, 2, 3] },
-                        { id: 4, nome: "Luna", tipo: "Gato", solicitacoes: [] },
-                    ]);
+                    setPets([{ id: 1, nome: "Thor", tipo: "Cachorro" }, { id: 2, nome: "Mia", tipo: "Gato" }]);
                 }
             } catch (error) {
-                console.error("Erro ao carregar dados pro Dashboard", error);
+                console.error(error);
             }
         };
-
         carregarDados();
     }, []);
 
-
     const totalPets = pets.length;
-    const totalAdocoes = pets.reduce((acc, pet) => acc + pet.solicitacoes.length, 0);
-    const mediaAdocoes = totalPets > 0 ? (totalAdocoes / totalPets).toFixed(1) : "0";
+    const custoMensalSemSistema = totalPets * custoRacaoDia * 30;
+    const economiaGerada = totalPets * custoRacaoDia * diasAdocaoMaisRapida;
+    const custoMensalComSistema = custoMensalSemSistema - economiaGerada;
 
-    const qtdCachorros = pets.filter(p => p.tipo.toLowerCase().includes('cachorro') || p.tipo.toLowerCase().includes('cão')).length;
-    const qtdGatos = pets.filter(p => p.tipo.toLowerCase().includes('gato')).length;
-    
-    const dadosEspecie = [
-        { name: 'Cachorros', value: qtdCachorros },
-        { name: 'Gatos', value: qtdGatos }
+    const dadosComparativos = [
+        { nome: 'Sem o Sistema', valor: custoMensalSemSistema },
+        { nome: 'Com o Sistema', valor: custoMensalComSistema }
     ];
-    const CORES_ESPECIE = ['#5dc0bb', '#f26f97'];
 
-    const dadosTopPets = [...pets]
-        .sort((a, b) => b.solicitacoes.length - a.solicitacoes.length)
-        .slice(0, 5)
-        .map(pet => ({
-            nome: pet.nome,
-            Solicitações: pet.solicitacoes.length
-        }));
+    const projecaoAcumulada = Array.from({ length: 6 }, (_, i) => ({
+        mes: `${i + 1}º Mês`,
+        poupado: economiaGerada * (i + 1)
+    }));
 
     return (
         <div className="dash_page_bg">
             <Menu />
-            
             <main className="dash_container">
                 <div className="dash_header">
-                    <h1>Visão Geral</h1>
-                    <p>Acompanhe os indicadores de adoção da PetLove</p>
+                    <h1>Calculadora de Eficiência Financeira</h1>
+                    <p>Compare os custos de manutenção dos pets com e sem o uso da plataforma</p>
                 </div>
 
                 <div className="kpi_grid">
                     <div className="kpi_card">
-                        <h3>Total de Pets</h3>
-                        <p className="kpi_value">{totalPets}</p>
+                        <h3>Gastos Atuais (Mês)</h3>
+                        <p className="kpi_value">R$ {custoMensalSemSistema.toFixed(2)}</p>
                     </div>
                     <div className="kpi_card">
-                        <h3>Solicitações Recebidas</h3>
-                        <p className="kpi_value destaque">{totalAdocoes}</p>
+                        <h3>Economia Gerada</h3>
+                        <p className="kpi_value destaque">R$ {economiaGerada.toFixed(2)}</p>
                     </div>
                     <div className="kpi_card">
-                        <h3>Média por Pet</h3>
-                        <p className="kpi_value">{mediaAdocoes}</p>
+                        <h3>Novo Custo Mensal</h3>
+                        <p className="kpi_value">R$ {custoMensalComSistema.toFixed(2)}</p>
                     </div>
                 </div>
 
-                <div className="charts_grid">
-                    
-                    <div className="chart_card">
-                        <h3>Distribuição por Espécie</h3>
-                        <div className="chart_wrapper">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                    <Pie
-                                        data={dadosEspecie}
-                                        innerRadius={60}
-                                        outerRadius={80}
-                                        paddingAngle={5}
-                                        dataKey="value"
-                                    >
-                                        {dadosEspecie.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={CORES_ESPECIE[index % CORES_ESPECIE.length]} />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip />
-                                    <Legend />
-                                </PieChart>
-                            </ResponsiveContainer>
+                <div className="simulador_container_novo">
+                    <div className="controles_simulacao">
+                        <h3>Ajustar Variáveis de Custo</h3>
+                        
+                        <div className="input_box">
+                            <label>Custo diário por Pet (R$)</label>
+                            <input type="number" value={custoRacaoDia} onChange={(e) => setCustoRacaoDia(Number(e.target.value))} />
+                        </div>
+
+                        <div className="input_box">
+                            <label>Dias ganhos com a agilidade do sistema</label>
+                            <input type="range" min="1" max="25" value={diasAdocaoMaisRapida} onChange={(e) => setDiasAdocaoMaisRapida(Number(e.target.value))} />
+                            <span>Aceleração de {diasAdocaoMaisRapida} dias</span>
+                        </div>
+
+                        <div className="total_save_box">
+                            <span>Dinheiro que sobra no mês:</span>
+                            <strong>R$ {economiaGerada.toFixed(2)}</strong>
                         </div>
                     </div>
 
-                    <div className="chart_card">
-                        <h3>Top 5 Pets Mais Desejados</h3>
-                        <div className="chart_wrapper">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={dadosTopPets}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
-                                    <XAxis dataKey="nome" tick={{ fill: '#666' }} axisLine={false} tickLine={false} />
-                                    <YAxis allowDecimals={false} tick={{ fill: '#666' }} axisLine={false} tickLine={false} />
-                                    <Tooltip 
-                                        cursor={{ fill: 'rgba(93, 192, 187, 0.1)' }}
-                                        contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                                    />
-                                    <Bar dataKey="Solicitações" fill="#f26f97" radius={[4, 4, 0, 0]} />
+                    <div className="graficos_simulacao">
+                        <div className="chart_item">
+                            <h4>Redução de Gastos Operacionais</h4>
+                            <ResponsiveContainer width="100%" height={250}>
+                                <BarChart data={dadosComparativos}>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                    <XAxis dataKey="nome" />
+                                    <YAxis />
+                                    <Tooltip formatter={(value) => `R$ ${value}`} />
+                                    <Bar dataKey="valor" fill="#5dc0bb" radius={[5, 5, 0, 0]} name="Custo de Manutenção" />
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
-                    </div>
 
+                        <div className="chart_item">
+                            <h4>Economia Acumulada no Semestre</h4>
+                            <ResponsiveContainer width="100%" height={250}>
+                                <LineChart data={projecaoAcumulada}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="mes" />
+                                    <YAxis />
+                                    <Tooltip formatter={(value) => `R$ ${value}`} />
+                                    <Legend />
+                                    <Line type="monotone" dataKey="poupado" stroke="#f26f97" strokeWidth={4} name="Total Economizado (R$)" dot={{ r: 6 }} />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>
